@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up - E-Market</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="auth-container">
+  <h2>Sign Up</h2>
+  <form id="signupForm">
+    <input type="text" id="name" placeholder="Full Name" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+    <label>
+      <input type="checkbox" id="terms"> I agree to the <a href="#">Terms & Conditions</a>
+    </label>
+    <button type="submit">Sign Up</button>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </form>
+</div>
+
+<script>
+// Signup JS
+document.getElementById("signupForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    let confirm = document.getElementById("confirmPassword").value;
+    let terms = document.getElementById("terms").checked;
+
+    if(password !== confirm){
+        alert("Passwords do not match!");
+        return;
+    }
+    if(!terms){
+        alert("You must accept Terms & Conditions.");
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    if(users.find(u => u.email === email)){
+        alert("Email already registered.");
+        return;
+    }
+
+    users.push({name, email, password, orders: []});
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("Signup successful!");
+    window.location.href = "login.html";
+});
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - E-Market</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+<header>
+  <div class="logo">E-Market</div>
+  <nav>
+    <button onclick="location.href='index.html'">Home</button>
+    <button onclick="location.href='cart.html'">🛒 Cart</button>
+  </nav>
+</header>
+
+<div class="checkout-container">
+  <h2>Checkout</h2>
+  <div id="cart-summary"></div>
+  <h3>Total: $<span id="total"></span></h3>
+  <button id="payBtn">Pay with Stripe (Test Mode)</button>
+</div>
+
+<script src="script.js"></script>
+<script>
+// Load cart summary
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let total = 0;
+let html = "";
+cart.forEach(p => {
+    total += p.price;
+    html += `<p>${p.name} - $${p.price}</p>`;
+});
+document.getElementById("cart-summary").innerHTML = html;
+document.getElementById("total").innerText = total.toFixed(2);
+
+// Stripe test checkout simulation
+document.getElementById("payBtn").addEventListener("click", function(){
+    alert("Payment successful in test mode! ✅\nYour order has been placed.");
+    // Add order to current user if logged in
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if(currentUser){
+        if(!currentUser.orders) currentUser.orders = [];
+        currentUser.orders.push(cart);
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+        let idx = users.findIndex(u => u.email === currentUser.email);
+        users[idx] = currentUser;
+        localStorage.setItem("users", JSON.stringify(users));
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    }
+    // Clear cart
+    localStorage.removeItem("cart");
+    window.location.href = "index.html";
+});
+</script>
+</body>
+</html>

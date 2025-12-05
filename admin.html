@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - E-Market</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">E-Market Admin</div>
+  <nav>
+    <button onclick="logout()">Logout</button>
+  </nav>
+</header>
+
+<h2 class="section-title">Manage Products</h2>
+
+<div class="admin-container">
+  <form id="productForm">
+    <input type="text" id="prodName" placeholder="Product Name" required>
+    <input type="number" id="prodPrice" placeholder="Price" required>
+    <input type="text" id="prodImage" placeholder="Image URL" required>
+    <textarea id="prodDesc" placeholder="Description" required></textarea>
+    <button type="submit">Add Product</button>
+  </form>
+
+  <h3>Existing Products</h3>
+  <div id="adminProductList" class="product-grid"></div>
+</div>
+
+<script src="script.js"></script>
+<script>
+// Admin authentication
+if(localStorage.getItem("isAdminLoggedIn") !== "true"){
+    alert("Access denied. Please login as admin.");
+    window.location.href = "admin-login.html";
+}
+
+// Load products in admin panel
+function loadAdminProducts(){
+    let html = "";
+    products.forEach((p, idx) => {
+        html += `
+        <div class="card">
+            <img src="${p.image}" alt="${p.name}">
+            <h3>${p.name}</h3>
+            <p>$${p.price}</p>
+            <button onclick="editProduct(${idx})">Edit</button>
+            <button onclick="deleteProduct(${idx})">Delete</button>
+        </div>`;
+    });
+    document.getElementById("adminProductList").innerHTML = html;
+}
+loadAdminProducts();
+
+// Add product
+document.getElementById("productForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    let name = document.getElementById("prodName").value;
+    let price = parseFloat(document.getElementById("prodPrice").value);
+    let image = document.getElementById("prodImage").value;
+    let desc = document.getElementById("prodDesc").value;
+    products.push({id: Date.now(), name, price, image, description: desc});
+    localStorage.setItem("products", JSON.stringify(products));
+    this.reset();
+    loadAdminProducts();
+    alert("Product added successfully!");
+});
+
+// Edit product
+function editProduct(idx){
+    let p = products[idx];
+    let newName = prompt("Edit Name:", p.name);
+    if(newName) p.name = newName;
+    let newPrice = prompt("Edit Price:", p.price);
+    if(newPrice) p.price = parseFloat(newPrice);
+    let newImage = prompt("Edit Image URL:", p.image);
+    if(newImage) p.image = newImage;
+    let newDesc = prompt("Edit Description:", p.description);
+    if(newDesc) p.description = newDesc;
+
+    products[idx] = p;
+    localStorage.setItem("products", JSON.stringify(products));
+    loadAdminProducts();
+    alert("Product updated!");
+}
+
+// Delete product
+function deleteProduct(idx){
+    if(confirm("Are you sure you want to delete this product?")){
+        products.splice(idx,1);
+        localStorage.setItem("products", JSON.stringify(products));
+        loadAdminProducts();
+    }
+}
+
+// Admin logout
+function logout(){
+    localStorage.removeItem("isAdminLoggedIn");
+    window.location.href = "admin-login.html";
+}
+</script>
+</body>
+</html>

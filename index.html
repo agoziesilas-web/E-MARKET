@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-Market</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <div class="logo">E-Market</div>
+  <nav>
+    <input type="text" id="searchBar" placeholder="Search products...">
+    <button onclick="location.href='cart.html'">🛒 Cart</button>
+    <button onclick="location.href='login.html'">Login</button>
+  </nav>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Discover Amazing Deals Every Day</h1>
+    <p>Shop the latest products at unbeatable prices!</p>
+    <button onclick="location.href='#products'">Shop Now</button>
+  </div>
+  <img src="https://images.unsplash.com/photo-1580910051075-7160e448b6b8?auto=format&fit=crop&w=1400&q=80" alt="Shopping banner" class="hero-img">
+</section>
+
+<!-- PRODUCTS -->
+<h2 class="section-title" id="products">Featured Products</h2>
+<div class="product-grid" id="product-list"></div>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 E-Market. All rights reserved.</p>
+  <p><a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
+<img src="images/headphone.jpg" alt="Wireless Headphones">
