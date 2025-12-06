@@ -10,7 +10,28 @@
 <body>
 
 <!-- NAVBAR -->
-<header>
+<header><header class="banner">
+  <div class="logo-box">
+
+    <!-- OSKONBO 3D Mascot SVG -->
+    <svg width="140" height="120" viewBox="0 0 140 120">
+
+      <!-- Drop shadow -->
+      <ellipse cx="70" cy="110" rx="40" ry="8" fill="rgba(0,0,0,0.25)" />
+
+      <!-- HEAD -->
+      <defs>
+        <radialGradient id="skin" cx="50%" cy="40%">
+          <stop offset="0%" stop-color="#ffe9d2"/>
+          <stop offset="100%" stop-color="#e6c2a0"/>
+        </radialGradient>
+      </defs>
+
+      <circle cx="70" cy="40" r="20" fill="url(#skin)" stroke="#000" stroke-width="1.5"/>
+
+      <!-- EYES -->
+      <circle cx="62" cy="38" r="3" fill="#000"/>
+
   <div class="logo">E-Market</div>
   <nav>
     <input type="text" id="searchBar" placeholder="Search products...">
@@ -43,6 +64,7 @@
 </body>
 </html>
 <img src="images/headphone.jpg" alt="Wireless Headphones">
+
 
 
 
