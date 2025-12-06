@@ -64,3 +64,9 @@ document.getElementById("searchBar").addEventListener("input", function(){
     }
     document.getElementById("product-list").innerHTML = html;
 });
+<script
+  async="async"
+  data-cfasync="false"
+  src="//pl28200269.effectivegatecpm.com/a6f2cabb4f1865b55720bca12f024506/invoke.js"
+></script>
+<div id="container-a6f2cabb4f1865b55720bca12f024506"></div>
